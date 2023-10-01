@@ -8,27 +8,28 @@ namespace SistemadeVenta.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolController : ControllerBase
+    public class CategoriaController : ControllerBase
     {
-        private readonly IRolService _rolServicio;
+        private readonly ICategoriaService _categoriaServicio;
 
-        public RolController(IRolService rolServicio)
+        public CategoriaController(ICategoriaService categoriaServicio)
         {
-            _rolServicio = rolServicio;
+            _categoriaServicio = categoriaServicio;
         }
         [HttpGet]
         [Route("Lista")]
 
-        public async Task<IActionResult> Lista() {
-            var rsp =new Response<List<RolDTO>>();
+        public async Task<IActionResult> Lista()
+        {
+            var rsp = new Response<List<CategoriaDTO>>();
 
-            try 
+            try
             {
                 rsp.Status = true;
-                rsp.Value=await _rolServicio.Lista();
+                rsp.Value = await _categoriaServicio.Lista();
             }
 
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 rsp.Status = false;
                 rsp.msg = ex.Message;
@@ -36,6 +37,5 @@ namespace SistemadeVenta.Api.Controllers
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
-
     }
 }

@@ -8,50 +8,30 @@ namespace SistemadeVenta.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class ProductoController : ControllerBase
     {
-        private readonly IUsuarioService _usuarioServicio;
+        private readonly IProductoService _productoServicio;
 
-        public UsuarioController(IUsuarioService usuarioServicio)
+        public ProductoController(IProductoService productoServicio)
         {
-            _usuarioServicio = usuarioServicio;
+            _productoServicio = productoServicio;
         }
+
         [HttpGet]
         [Route("Lista")]
 
         public async Task<IActionResult> Lista()
         {
-            var rsp = new Response<List<UsuarioDTO>>();
+            var rsp = new Response<List<ProductoDTO>>();
 
             try
             {
                 rsp.Status = true;
-                rsp.Value = await _usuarioServicio.Lista();
+                rsp.Value = await _productoServicio.Lista();
             }
 
             catch (Exception ex)
             {
-                rsp.msg = ex.Message;
-            }
-            //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
-            return Ok(rsp);
-        }
-        [HttpPost]
-        [Route("IniciarSesion")]
-
-        public async Task<IActionResult> IniciarSesion([FromBody] LoginDTO login)
-        {
-            var rsp = new Response<SesionDTO>();
-
-            try
-            {
-                rsp.Status = true;
-                rsp.Value = await _usuarioServicio.ValidarCredenciales(login.Correo, login.Clave);
-            }
-
-            catch (Exception ex)
-            {
-                rsp.Status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -60,14 +40,14 @@ namespace SistemadeVenta.Api.Controllers
         [HttpPost]
         [Route("Guardar")]
 
-        public async Task<IActionResult> Guardar([FromBody] UsuarioDTO usuario)
+        public async Task<IActionResult> Guardar([FromBody] ProductoDTO producto)
         {
-            var rsp = new Response<UsuarioDTO>();
+            var rsp = new Response<ProductoDTO>();
 
             try
             {
                 rsp.Status = true;
-                rsp.Value = await _usuarioServicio.Crear(usuario);
+                rsp.Value = await _productoServicio.Crear(producto);
             }
 
             catch (Exception ex)
@@ -80,14 +60,14 @@ namespace SistemadeVenta.Api.Controllers
         }
         [HttpPut]
         [Route("Editar")]
-        public async Task<IActionResult> Editar([FromBody] UsuarioDTO usuario)
+        public async Task<IActionResult> Editar([FromBody] ProductoDTO producto)
         {
-            var rsp = new Response<UsuarioDTO>();
+            var rsp = new Response<bool>();
 
             try
             {
                 rsp.Status = true;
-                rsp.Value = await _usuarioServicio.Crear(usuario);
+                rsp.Value = await _productoServicio.Editar(producto);
             }
 
             catch (Exception ex)
@@ -107,7 +87,7 @@ namespace SistemadeVenta.Api.Controllers
             try
             {
                 rsp.Status = true;
-                rsp.Value = await _usuarioServicio.Eliminar(id);
+                rsp.Value = await _productoServicio.Eliminar(id);
             }
 
             catch (Exception ex)
@@ -118,6 +98,5 @@ namespace SistemadeVenta.Api.Controllers
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
-
     }
 }
