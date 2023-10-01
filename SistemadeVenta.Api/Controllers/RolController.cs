@@ -24,7 +24,7 @@ namespace SistemadeVenta.Api.Controllers
 
             try 
             {
-                rsp.status = true;
+                rsp.Status = true;
                 rsp.Value=await _rolServicio.Lista();
             }
 

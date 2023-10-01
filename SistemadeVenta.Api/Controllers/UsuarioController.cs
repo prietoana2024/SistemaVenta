@@ -25,7 +25,7 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.status = true;
+                rsp.Status = true;
                 rsp.Value = await _usuarioServicio.Lista();
             }
 
@@ -36,5 +36,26 @@ namespace SistemadeVenta.Api.Controllers
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
+        [HttpPost]
+        [Route("Lista")]
+
+        public async Task<IActionResult> Lista()
+        {
+            var rsp = new Response<List<UsuarioDTO>>();
+
+            try
+            {
+                rsp.Status = true;
+                rsp.Value = await _usuarioServicio.Lista();
+            }
+
+            catch (Exception ex)
+            {
+                rsp.msg = ex.Message;
+            }
+            //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
+            return Ok(rsp);
+        }
+
     }
 }
