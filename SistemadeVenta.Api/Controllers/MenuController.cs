@@ -2,33 +2,32 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemadeVenta.DLL.Servicios.Contrato;
 using SistemaVenta.DTO;
+using SistemaVenta.Model;
 using SistemadeVenta.Api.Utilidad;
 using Microsoft.AspNetCore.Cors;
 
 namespace SistemadeVenta.Api.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-
-    public class RolController : ControllerBase
+    public class MenuController : ControllerBase
     {
-        private readonly IRolService _rolServicio;
+        private readonly IMenuService _menuServicio;
 
-        public RolController(IRolService rolServicio)
+        public MenuController(IMenuService menuServicio)
         {
-            _rolServicio = rolServicio;
+            _menuServicio = menuServicio;
         }
         [HttpGet]
-        [Route("Lista")]
-
-        public async Task<IActionResult> Lista()
+        public async Task<IActionResult> Lista(int idUsuario)
         {
-            var rsp = new Response<List<RolDTO>>();
+            var rsp = new Response<List<MenuDTO>>();
 
             try
             {
                 rsp.status = true;
-                rsp.Value = await _rolServicio.Lista();
+                rsp.Value = await _menuServicio.Lista(idUsuario);
             }
 
             catch (Exception ex)
@@ -39,6 +38,5 @@ namespace SistemadeVenta.Api.Controllers
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
-
     }
 }

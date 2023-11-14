@@ -3,16 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using SistemadeVenta.DLL.Servicios.Contrato;
 using SistemaVenta.DTO;
 using SistemadeVenta.Api.Utilidad;
+using Microsoft.AspNetCore.Cors;
 
 namespace SistemadeVenta.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductoController : ControllerBase
+    public class ServicioController : ControllerBase
     {
         private readonly IProductoService _productoServicio;
 
-        public ProductoController(IProductoService productoServicio)
+        public ServicioController(IProductoService productoServicio)
         {
             _productoServicio = productoServicio;
         }
@@ -26,7 +27,7 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _productoServicio.Lista();
             }
 
@@ -40,19 +41,20 @@ namespace SistemadeVenta.Api.Controllers
         [HttpPost]
         [Route("Guardar")]
 
+
         public async Task<IActionResult> Guardar([FromBody] ProductoDTO producto)
         {
             var rsp = new Response<ProductoDTO>();
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _productoServicio.Crear(producto);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -66,13 +68,13 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _productoServicio.Editar(producto);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -80,19 +82,21 @@ namespace SistemadeVenta.Api.Controllers
         }
         [HttpDelete]
         [Route("Eliminar/{id:int}")]
+
+
         public async Task<IActionResult> Eliminar(int id)
         {
             var rsp = new Response<bool>();
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _productoServicio.Eliminar(id);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS

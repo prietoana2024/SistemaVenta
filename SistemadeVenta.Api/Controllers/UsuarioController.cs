@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SistemadeVenta.DLL.Servicios.Contrato;
 using SistemaVenta.DTO;
 using SistemadeVenta.Api.Utilidad;
+using Microsoft.AspNetCore.Cors;
 
 namespace SistemadeVenta.Api.Controllers
 {
@@ -25,7 +26,7 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _usuarioServicio.Lista();
             }
 
@@ -45,13 +46,13 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _usuarioServicio.ValidarCredenciales(login.Correo, login.Clave);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -66,13 +67,13 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _usuarioServicio.Crear(usuario);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -86,13 +87,13 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _usuarioServicio.Crear(usuario);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
@@ -106,18 +107,17 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _usuarioServicio.Eliminar(id);
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
-
     }
 }

@@ -17,6 +17,7 @@ namespace SistemaVenta.IOC
 {
     public static class Dependencia
     {
+
         public static void InyectarDependencias(this IServiceCollection services, IConfiguration configuration) {
             services.AddDbContext<DbventaContext>(options =>
             {
@@ -37,6 +38,7 @@ namespace SistemaVenta.IOC
             services.AddScoped<IMenuService, MenuService>();
             services.AddScoped<DbContext, DbventaContext>();
         }
+
         }
 }
     

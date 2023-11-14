@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SistemadeVenta.DLL.Servicios.Contrato;
 using SistemaVenta.DTO;
 using SistemadeVenta.Api.Utilidad;
+using Microsoft.AspNetCore.Cors;
 
 namespace SistemadeVenta.Api.Controllers
 {
@@ -16,6 +17,7 @@ namespace SistemadeVenta.Api.Controllers
         {
             _categoriaServicio = categoriaServicio;
         }
+
         [HttpGet]
         [Route("Lista")]
 
@@ -25,13 +27,13 @@ namespace SistemadeVenta.Api.Controllers
 
             try
             {
-                rsp.Status = true;
+                rsp.status = true;
                 rsp.Value = await _categoriaServicio.Lista();
             }
 
             catch (Exception ex)
             {
-                rsp.Status = false;
+                rsp.status = false;
                 rsp.msg = ex.Message;
             }
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS

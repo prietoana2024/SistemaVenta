@@ -9,28 +9,24 @@ namespace SistemadeVenta.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class RolController : ControllerBase
+    public class DashBoardController : ControllerBase
     {
-        private readonly IRolService _rolServicio;
+        private readonly IDashBoardService _dashboardServicio;
 
-        public RolController(IRolService rolServicio)
+        public DashBoardController(IDashBoardService dashboardServicio)
         {
-            _rolServicio = rolServicio;
+            _dashboardServicio = dashboardServicio;
         }
         [HttpGet]
-        [Route("Lista")]
-
-        public async Task<IActionResult> Lista()
+        [Route("Resumen")]
+        public async Task<IActionResult> Resumen()
         {
-            var rsp = new Response<List<RolDTO>>();
-
+            var rsp = new Response<DashBoardDTO>();
             try
             {
                 rsp.status = true;
-                rsp.Value = await _rolServicio.Lista();
+                rsp.Value = await _dashboardServicio.Resumen();
             }
-
             catch (Exception ex)
             {
                 rsp.status = false;
@@ -39,6 +35,5 @@ namespace SistemadeVenta.Api.Controllers
             //TODAS LOS SOLICITUDES SERÁN RESPUESTAS EXITOSAS
             return Ok(rsp);
         }
-
     }
 }
