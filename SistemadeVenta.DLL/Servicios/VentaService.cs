@@ -89,7 +89,7 @@ namespace SistemadeVenta.DLL.Servicios
                 DateTime fech_Fin = DateTime.ParseExact(fechaFin, "dd/MM/yyyy", new CultureInfo("es-CO"));
 
                 listaResultado = await query.Include(p => p.IdProductoNavigation).Include(v => v.IdVentaNavigation)
-                    .Where(dv => dv.IdVentaNavigation.FechaRegistro.Value.Date >= fech_Inicio.Date &&
+                    .Where(dv => dv.IdVentaNavigation!.FechaRegistro!.Value.Date >= fech_Inicio.Date &&
                     dv.IdVentaNavigation.FechaRegistro.Value.Date <= fech_Fin.Date).ToListAsync();
             }
             catch

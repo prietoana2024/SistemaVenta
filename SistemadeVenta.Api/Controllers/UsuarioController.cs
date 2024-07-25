@@ -4,6 +4,7 @@ using SistemadeVenta.DLL.Servicios.Contrato;
 using SistemaVenta.DTO;
 using SistemadeVenta.Api.Utilidad;
 using Microsoft.AspNetCore.Cors;
+using SistemaVenta.Model;
 
 namespace SistemadeVenta.Api.Controllers
 {
@@ -83,12 +84,12 @@ namespace SistemadeVenta.Api.Controllers
         [Route("Editar")]
         public async Task<IActionResult> Editar([FromBody] UsuarioDTO usuario)
         {
-            var rsp = new Response<UsuarioDTO>();
+            var rsp = new Response<bool>();
 
             try
             {
                 rsp.status = true;
-                rsp.Value = await _usuarioServicio.Crear(usuario);
+                rsp.Value = await _usuarioServicio.Editar(usuario);
             }
 
             catch (Exception ex)

@@ -17,7 +17,7 @@ namespace SistemadeVenta.Api.Controllers
         {
             _categoriaServicio = categoriaServicio;
         }
-
+    
         [HttpGet]
         [Route("Lista")]
 

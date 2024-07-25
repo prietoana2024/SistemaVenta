@@ -86,7 +86,9 @@ namespace SistemaVenta.Utility
                 .ForMember(destino =>
                 destino.Total,
                 opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalTexto, new CultureInfo("es-CO")))
-                );
+                )
+                .ForMember(destino => destino.FechaRegistro,
+                opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaRegistro)));
 
             #endregion
 
@@ -107,12 +109,45 @@ namespace SistemaVenta.Utility
                 
                 .ForMember(destino =>
                 destino.Precio,
-                opt => opt.MapFrom(origen => Convert.ToString(origen.PrecioTexto, new CultureInfo("es-CO"))
+                opt => opt.MapFrom(origen => Convert.ToDecimal(origen.PrecioTexto, new CultureInfo("es-CO"))
                 ))
                 .ForMember(destino =>
                 destino.Total,
-                opt => opt.MapFrom(origen => Convert.ToString(origen.TotalTexto, new CultureInfo("es-CO")))
+                opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalTexto, new CultureInfo("es-CO")))
                 );
+
+            #endregion
+
+
+            #region Reporte
+            CreateMap<DetalleVenta, ReporteDTO>()
+                .ForMember(destino => destino.FechaRegistro,
+                opt => opt.MapFrom(origen => origen.IdVentaNavigation.FechaRegistro.Value.ToString("dd/MM/yyyy")))
+
+               .ForMember(destino => destino.NumeroDocumento,
+                opt => opt.MapFrom(origen => origen.IdVentaNavigation.NumeroDocumento))
+
+               .ForMember(destino => destino.TipoPago,
+                opt => opt.MapFrom(origen => origen.IdVentaNavigation.TipoPago))
+
+               .ForMember(destino =>
+                destino.TotalVenta,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Total.Value, new CultureInfo("es-CO"))))
+
+                .ForMember(destino =>
+                destino.Producto,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.IdProductoNavigation.Nombre)))
+
+                .ForMember(destino =>
+                destino.Precio,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.Precio, new CultureInfo("es-CO"))))
+
+
+                .ForMember(destino =>
+                destino.Total,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-CO"))));
+
+
 
             #endregion
         }

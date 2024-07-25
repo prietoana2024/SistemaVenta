@@ -90,6 +90,8 @@ namespace SistemadeVenta.DLL.Servicios
                 {
                     throw new TaskCanceledException("Usuario no existe");
                 }
+
+
                 usuarioEncontrado.NombreCompleto = usuarioModelo.NombreCompleto;
                 usuarioEncontrado.Correo = usuarioModelo.Correo;
                 usuarioEncontrado.IdRol = usuarioModelo.IdRol;
